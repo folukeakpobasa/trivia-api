@@ -6,8 +6,18 @@ import Search from './Search';
 import $ from 'jquery';
 
 class QuestionView extends Component {
-  constructor(props){
-    super(props);
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     questions: [],
+  //     page: 1,
+  //     totalQuestions: 0,
+  //     categories: {},
+  //     currentCategory: null,
+  //   }
+  // }
+  constructor(){
+    super();
     this.state = {
       questions: [],
       page: 1,
@@ -76,11 +86,11 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/api/v1.0/questions`,
+      url: `/api/v1.0/questions/search`,
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
-      data: JSON.stringify({searchTerm: searchTerm}),
+      data: JSON.stringify({search_term: searchTerm}),
       xhrFields: {
         withCredentials: true
       },
