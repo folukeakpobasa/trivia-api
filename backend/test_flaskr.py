@@ -40,8 +40,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['total_questions'], 3)
-        # self.assertTrue(len(data['questions']),
-        # "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?")
 
     def test_404_sent_requesting_beyond_valid_page(self):
         res = self.client().get('/api/v1.0/questions?page=100')
@@ -59,6 +57,14 @@ class TriviaTestCase(unittest.TestCase):
         self.assertTrue((categories[0], 1))
         self.assertTrue(categories[1], "History")
 
+    def test_get_categories_fails(self):
+        res = self.client().post('/api/v1.0/categories')
+        data = json.loads(res.data)
+        categories = Category.query.all()
+
+        self.assertEqual(res.status_code, 400)
+        self.assertEqual(data['success'], False)
+
     def test_delete_question(self):
         res = self.client().delete('/api/v1.0/question/2')
         data = json.loads(res.data)
@@ -66,7 +72,6 @@ class TriviaTestCase(unittest.TestCase):
         question = Question.query.filter(Question.id == 2).one_or_none()
         self.assertEqual(res.status_code, 404)
         self.assertEqual(data['success'], False)
-        # self.assertEqual(data['question'], None)
 
     def test_422_delete_question_failed(self):
         res = self.client().delete('/api/v1.0/question/500')
@@ -113,8 +118,24 @@ class TriviaTestCase(unittest.TestCase):
         }
         res = self.client().get('/api/v1.0/questions/search', json=new_search)
         data = json.loads(res.data)
+        
         self.assertEqual(res.status_code, 400)
         self.assertTrue(data['message'], "resource not found")
+    
+    def test_retrieve_questions_based_on_category(self):
+        res = self.client().get('/api/v1.0/categories/2/questions')
+        data = json.loads(res.data)
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['total_questions'], 10)
+        
+    def test_retrieve_questions_based_on_category_fails(self):
+        res = self.client().get('/api/v1.0/categories/<one>/questions')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 404)
+        self.assertEqual(data['success'], False)
 
 
 # Make the tests conveniently executable

@@ -44,13 +44,14 @@ def create_app(test_config=None):
         '''an endpoint to handle GET request for all available categories'''
         try:
             categories = Category.query.order_by(Category.id).all()
+            print(categories)
             dict_categories = {}
             for category in categories:
                 dict_categories[category.id] = category.type
-                return jsonify({
-                    'success': True,
-                    'categories': dict_categories
-                })
+            return jsonify({
+                'success': True,
+                'categories': dict_categories
+            })
         except Category.DoesNotExist:
             abort(404)
 
@@ -163,7 +164,7 @@ def create_app(test_config=None):
                 ],
                 'total_questions': len(questions_under_category),
                 'current_category': question_category,
-                'Success': True,
+                'success': True,
             })
 
         except Question.DoesNotExist:
@@ -180,21 +181,37 @@ def create_app(test_config=None):
         previous_questions = body.get('previous_questions', None)
         quiz_category = body.get('quiz_category', None)
 
-        questions = Question.query.filter(
-            Question.category == quiz_category['id']).all()
+        if quiz_category['id'] == 0:
+            questions = Question.query.all()
+            question_list = [each_question.id for each_question in questions
+                             if each_question.id not in previous_questions]
 
-        question_list = [each_question.id for each_question in questions
-                         if each_question.id not in previous_questions]
+            random_question_id = random.choice(question_list)
 
-        random_question_id = random.choice(question_list)
+            random_questions = Question.query.filter(
+                Question.id == random_question_id).first()
 
-        random_questions = Question.query.filter(
-            Question.id == random_question_id).first()
+            return jsonify({
+                "success": True,
+                "question": random_questions.format()
+            })
 
-        return jsonify({
-            "success": True,
-            "question": random_questions.format()
-        })
+        else:
+            questions = Question.query.filter(
+                Question.category == quiz_category['id']).all()
+
+            question_list = [each_question.id for each_question in questions
+                             if each_question.id not in previous_questions]
+
+            random_question_id = random.choice(question_list)
+
+            random_questions = Question.query.filter(
+                Question.id == random_question_id).first()
+
+            return jsonify({
+                "success": True,
+                "question": random_questions.format()
+            })
 
 # error handlers
     @app.errorhandler(404)
