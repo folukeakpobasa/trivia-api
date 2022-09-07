@@ -191,10 +191,14 @@ Create an endpoint to handle GET requests for questions, including pagination (e
 ### GET '/api/v1.0/questions/search'
 - Fetches a question that contains the pattern specified as search_term.
 - Request Arguments:
+```
 {
     "search_term": "actor"
 }
-- Returns: An object with a single key, categories, that contains a object of id: category_string
+```
+- Returns: An object with current_categories, questions and total_questions
+
+```
 "Success": true,
     "current_category": null,
     "questions": [
@@ -209,22 +213,19 @@ Create an endpoint to handle GET requests for questions, including pagination (e
     "total_questions": 1
 ```
 
-GET '/api/v1.0/categories'
-
-POST '/api/v1.0/question'
+### POST '/api/v1.0/question'
+- Add new question and persist the database
+- Request Arguments:
+```
 {
     "question": "Microsoft Excel is an example of which packages",
     "answer": "spreadsheet",
     "difficulty": 2,
     "category": 2
 }
+- Returns: None
 
-{
-    "created": 83,
-    "success": true
-}
 
-Create a POST endpoint to get questions based on category
 
 
 ## Testing
