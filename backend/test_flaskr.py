@@ -15,9 +15,6 @@ class TriviaTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        # self.database_name = "trivia_test"
-        # self.database_path = "postgresql://postgres@{}/{}".format(
-        #     'localhost:5432', self.database_name)
         self.database_path = "postgresql://{}@{}/{}".format(
             DB_USER, 'localhost:5432', DB_NAME)
         setup_db(self.app, self.database_path)
@@ -118,18 +115,18 @@ class TriviaTestCase(unittest.TestCase):
         }
         res = self.client().get('/api/v1.0/questions/search', json=new_search)
         data = json.loads(res.data)
-        
+
         self.assertEqual(res.status_code, 400)
         self.assertTrue(data['message'], "resource not found")
-    
+
     def test_retrieve_questions_based_on_category(self):
         res = self.client().get('/api/v1.0/categories/2/questions')
         data = json.loads(res.data)
-        
+
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
         self.assertTrue(data['total_questions'], 10)
-        
+
     def test_retrieve_questions_based_on_category_fails(self):
         res = self.client().get('/api/v1.0/categories/<one>/questions')
         data = json.loads(res.data)

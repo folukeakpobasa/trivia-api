@@ -77,18 +77,13 @@ This README is missing documentation of your endpoints. Below is an example for 
 
 ## API
 
-```
-Endpoints
-GET '/api/v1.0/categories'
-GET ...
-POST ...
-DELETE ...
-
-
 ### GET '/api/v1.0/categories'
+
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs.
+
+```
 {'1' : "Science",
 '2' : "Art",
 '3' : "Geography",
@@ -96,143 +91,221 @@ DELETE ...
 '5' : "Entertainment",
 '6' : "Sports"}
 
+```
+
 ### GET '/api/v1.0/questions'
+
 - Fetches a dictionary of questions,categories, current_category
 - Request Arguments: None
 - Returns: An object with a single key, categories, that contains a object of id: category_string key:value pair
-{
-    "categories": {
-        "1": "Science",
-        "2": "Art",
-        "3": "Geography",
-        "4": "History",
-        "5": "Entertainment",
-        "6": "Sports"
-    },
-    "current_category": null,
-    "questions": [
-        {
-            "answer": "Tom Cruise",
-            "category": 5,
-            "difficulty": 4,
-            "id": 4,
-            "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-        },
-        {
-            "answer": "Maya Angelou",
-            "category": 4,
-            "difficulty": 2,
-            "id": 5,
-            "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
-        },
-        {
-            "answer": "Edward Scissorhands",
-            "category": 5,
-            "difficulty": 3,
-            "id": 6,
-            "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-        },
-        {
-            "answer": "Muhammad Ali",
-            "category": 4,
-            "difficulty": 1,
-            "id": 9,
-            "question": "What boxer's original name is Cassius Clay?"
-        },
-        {
-            "answer": "Brazil",
-            "category": 6,
-            "difficulty": 3,
-            "id": 10,
-            "question": "Which is the only team to play in every soccer World Cup tournament?"
-        },
-        {
-            "answer": "Uruguay",
-            "category": 6,
-            "difficulty": 4,
-            "id": 11,
-            "question": "Which country won the first ever soccer World Cup in 1930?"
-        },
-        {
-            "answer": "George Washington Carver",
-            "category": 4,
-            "difficulty": 2,
-            "id": 12,
-            "question": "Who invented Peanut Butter?"
-        },
-        {
-            "answer": "Lake Victoria",
-            "category": 3,
-            "difficulty": 2,
-            "id": 13,
-            "question": "What is the largest lake in Africa?"
-        },
-        {
-            "answer": "The Palace of Versailles",
-            "category": 3,
-            "difficulty": 3,
-            "id": 14,
-            "question": "In which royal palace would you find the Hall of Mirrors?"
-        },
-        {
-            "answer": "Agra",
-            "category": 3,
-            "difficulty": 2,
-            "id": 15,
-            "question": "The Taj Mahal is located in which Indian city?"
-        }
-    ],
-    "success": true,
-    "total_questions": 75
-}
 
-Create an endpoint to handle GET requests for questions, including pagination (every 10 questions). This endpoint should return a list of questions, number of total questions, current category, categories.
+```
+
+{
+"categories": {
+"1": "Science",
+"2": "Art",
+"3": "Geography",
+"4": "History",
+"5": "Entertainment",
+"6": "Sports"
+},
+"current_category": null,
+"questions": [
+{
+"answer": "Tom Cruise",
+"category": 5,
+"difficulty": 4,
+"id": 4,
+"question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+},
+{
+"answer": "Maya Angelou",
+"category": 4,
+"difficulty": 2,
+"id": 5,
+"question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+},
+{
+"answer": "Edward Scissorhands",
+"category": 5,
+"difficulty": 3,
+"id": 6,
+"question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+},
+{
+"answer": "Muhammad Ali",
+"category": 4,
+"difficulty": 1,
+"id": 9,
+"question": "What boxer's original name is Cassius Clay?"
+},
+{
+"answer": "Brazil",
+"category": 6,
+"difficulty": 3,
+"id": 10,
+"question": "Which is the only team to play in every soccer World Cup tournament?"
+},
+{
+"answer": "Uruguay",
+"category": 6,
+"difficulty": 4,
+"id": 11,
+"question": "Which country won the first ever soccer World Cup in 1930?"
+},
+{
+"answer": "George Washington Carver",
+"category": 4,
+"difficulty": 2,
+"id": 12,
+"question": "Who invented Peanut Butter?"
+},
+{
+"answer": "Lake Victoria",
+"category": 3,
+"difficulty": 2,
+"id": 13,
+"question": "What is the largest lake in Africa?"
+},
+{
+"answer": "The Palace of Versailles",
+"category": 3,
+"difficulty": 3,
+"id": 14,
+"question": "In which royal palace would you find the Hall of Mirrors?"
+},
+{
+"answer": "Agra",
+"category": 3,
+"difficulty": 2,
+"id": 15,
+"question": "The Taj Mahal is located in which Indian city?"
+}
+],
+"success": true,
+"total_questions": 75
+}
+```
 
 ### GET '/api/v1.0/questions/search'
+
 - Fetches a question that contains the pattern specified as search_term.
 - Request Arguments:
+
 ```
+
 {
-    "search_term": "actor"
+"search_term": "actor"
 }
-```
+
 - Returns: An object with current_categories, questions and total_questions
 
 ```
+
 "Success": true,
-    "current_category": null,
-    "questions": [
-        {
-            "answer": "Tom Cruise",
-            "category": 5,
-            "difficulty": 4,
-            "id": 4,
-            "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-        }
-    ],
-    "total_questions": 1
-```
+"current_category": null,
+"questions": [
+{
+"answer": "Tom Cruise",
+"category": 5,
+"difficulty": 4,
+"id": 4,
+"question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+}
+],
+"total_questions": 1
 
 ### POST '/api/v1.0/question'
+
 - Add new question and persist the database
 - Request Arguments:
+
 ```
+
 {
-    "question": "Microsoft Excel is an example of which packages",
-    "answer": "spreadsheet",
-    "difficulty": 2,
-    "category": 2
+"question": "Microsoft Excel is an example of which packages",
+"answer": "spreadsheet",
+"difficulty": 2,
+"category": 2
 }
+```
+
 - Returns: None
 
+### DELETE '/api/v1.0/questions/<int:question_id>'
 
+- Delete a specific question and persist the database
+- Request Arguments: None
+- Returns:
+  '''
+  {
+  'success': True,
+  'deleted': question_id
+  }
 
+### POST '/api/v1.0/quizzes'
+
+- Fetches a random question within a specified category. Previously asked questions are not revisited
+- Request Arguments:
+  {
+  previous_questions: [],
+  quiz_category: {"id": 1,
+  "type": "History"
+  }
+  }
+
+- Returns:
+
+```
+{
+  "question": {
+    "answer": "The Liver",
+    "category": 1,
+    "difficulty": 4,
+    "id": 20,
+    "question": "What is the heaviest organ in the human body?"
+  },
+  "success": true
+}
+```
+
+### GET '/api/v1.0/categories/<int:question_category>/questions'
+
+- Fetches questions based on a specified category
+- Request Arguments: None
+- Returns:
+
+```
+{
+  "questions": [
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    },
+  ],
+  "current_category": 1,
+  "success": true,
+  "total_questions": 2
+}
+```
 
 ## Testing
 
 To run the tests, run
 
 ```
+
 dropdb trivia_test
 createdb trivia_test
 psql trivia_test < trivia.psql
