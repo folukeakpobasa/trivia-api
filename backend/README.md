@@ -97,8 +97,9 @@ DELETE ...
 '6' : "Sports"}
 
 ### GET '/api/v1.0/questions'
-
-
+- Fetches a dictionary of questions,categories, current_category
+- Request Arguments: None
+- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pair
 {
     "categories": {
         "1": "Science",
